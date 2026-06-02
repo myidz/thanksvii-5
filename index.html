@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Thanks VII-5</title>
 
   <style>
@@ -1440,12 +1443,40 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbz4a8BnIn-le0VK5Jcb7M4cR_uB00VvsSzQrPLcrl1wSEJTfPTzS4qcrhv8sDsF9l-g1A/exec';
-    const PHOTO_URL = 'images/foto75.jpg';
-    const LOGO_URL = 'images/logo.jpg';
-    const MUSIC_URL = 'audio/lagu.mpeg';
+    const APP_VERSION = 'vii5-anti-cache-20260603-01';
 
-    let adminToken = localStorage.getItem('adminTokenVii5') || '';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbz4a8BnIn-le0VK5Jcb7M4cR_uB00VvsSzQrPLcrl1wSEJTfPTzS4qcrhv8sDsF9l-g1A/exec';
+    const PHOTO_URL = 'images/foto75.jpg?v=' + APP_VERSION;
+    const LOGO_URL = 'images/logo.jpg?v=' + APP_VERSION;
+    const MUSIC_URL = 'audio/lagu.mpeg?v=' + APP_VERSION;
+
+    const ADMIN_TOKEN_KEY = 'adminToken_' + APP_VERSION;
+
+    try {
+      Object.keys(localStorage).forEach(function(key) {
+        if (key.indexOf('adminToken') === 0 && key !== ADMIN_TOKEN_KEY) {
+          localStorage.removeItem(key);
+        }
+      });
+
+      if ('caches' in window) {
+        caches.keys().then(function(names) {
+          names.forEach(function(name) {
+            caches.delete(name);
+          });
+        });
+      }
+
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          registrations.forEach(function(registration) {
+            registration.unregister();
+          });
+        });
+      }
+    } catch (error) {}
+
+    let adminToken = sessionStorage.getItem(ADMIN_TOKEN_KEY) || '';
     let allMessages = [];
     let refreshTimer = null;
     let namesHidden = false;
@@ -1475,51 +1506,76 @@
     const bgMusic = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
 
-    function apiCall(action, params) {
+    function apiCall(action, params, attempt) {
+      attempt = attempt || 1;
+
       return new Promise(function(resolve, reject) {
         if (!API_URL || API_URL.includes('GANTI_DENGAN')) {
           reject(new Error('API_URL belum diganti dengan link Web App Apps Script /exec.'));
           return;
         }
 
-        const callbackName = 'jsonpCallback_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+        const callbackName = 'jsonpCallback_' + APP_VERSION.replace(/[^a-zA-Z0-9_]/g, '_') + '_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
         const query = new URLSearchParams();
 
         query.set('action', action);
         query.set('callback', callbackName);
+        query.set('_nocache', APP_VERSION + '-' + Date.now() + '-' + Math.floor(Math.random() * 100000));
 
         Object.keys(params || {}).forEach(function(key) {
           query.set(key, params[key]);
         });
 
         const script = document.createElement('script');
+        script.async = true;
         script.src = API_URL + '?' + query.toString();
 
         const timeoutId = setTimeout(function() {
           cleanup();
-          reject(new Error('Koneksi ke database terlalu lama. Cek link API_URL dan deployment Apps Script.'));
-        }, 20000);
+          reject(new Error('Koneksi ke database terlalu lama. Coba refresh halaman atau cek koneksi internet.'));
+        }, 25000);
 
         window[callbackName] = function(data) {
           clearTimeout(timeoutId);
           cleanup();
+
+          if (!data || typeof data !== 'object') {
+            reject(new Error('Respons database kosong atau tidak valid.'));
+            return;
+          }
+
           resolve(data);
         };
 
         script.onerror = function() {
           clearTimeout(timeoutId);
           cleanup();
-          reject(new Error('Gagal menghubungi Apps Script. Pastikan API_URL benar dan akses Anyone.'));
+          reject(new Error('Gagal menghubungi Apps Script. Pastikan link API benar, deploy versi terbaru, dan akses Web App = Anyone.'));
         };
 
         function cleanup() {
-          delete window[callbackName];
+          try {
+            delete window[callbackName];
+          } catch (error) {
+            window[callbackName] = undefined;
+          }
+
           if (script.parentNode) {
             script.parentNode.removeChild(script);
           }
         }
 
         document.body.appendChild(script);
+      }).catch(function(error) {
+        if (attempt < 2) {
+          return new Promise(function(resolve) {
+            setTimeout(resolve, 900);
+          }).then(function() {
+            return apiCall(action, params, attempt + 1);
+          });
+        }
+
+        throw error;
       });
     }
 
@@ -1590,7 +1646,7 @@
             musicBtn.textContent = '🔇';
           })
           .catch(function () {
-            showToast('Lagu belum bisa diputar. Pastikan file audio/lagu.mp3 sudah diupload.');
+            showToast('Lagu belum bisa diputar. Pastikan file audio/lagu.mpeg sudah diupload.');
           });
       }
     }
@@ -1741,7 +1797,7 @@
 
           if (response.success) {
             adminToken = response.token;
-            localStorage.setItem('adminTokenVii5', adminToken);
+            sessionStorage.setItem(ADMIN_TOKEN_KEY, adminToken);
 
             adminModal.classList.add('hidden');
             openAdminMode();
@@ -1914,6 +1970,17 @@
       document.body.removeChild(link);
 
       URL.revokeObjectURL(url);
+    });
+
+    window.addEventListener('error', function(event) {
+      const message = event && event.message ? event.message : 'Terjadi error kecil di browser.';
+      if (message && !String(message).includes('Script error')) {
+        console.log('Error tertangkap:', message);
+      }
+    });
+
+    window.addEventListener('unhandledrejection', function(event) {
+      console.log('Promise error tertangkap:', event.reason);
     });
 
     createMathBackground();
