@@ -1,1 +1,1923 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Thanks VII-5</title>
 
+  <style>
+    @font-face {
+      font-family: 'RobotoCustom';
+      src: url("fonts/Roboto-Regular.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --navy: #16213e;
+      --blue: #3f72af;
+      --rose: #ff4d6d;
+      --pink: #ff8fab;
+      --purple: #8b5cf6;
+      --yellow: #ffd166;
+      --shadow: 0 20px 50px rgba(22, 33, 62, .18);
+      --shadow-soft: 0 10px 25px rgba(22, 33, 62, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'RobotoCustom', Arial, sans-serif;
+      color: var(--navy);
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(255, 209, 102, .28), transparent 32%),
+        radial-gradient(circle at top right, rgba(255, 143, 171, .34), transparent 30%),
+        linear-gradient(135deg, #f8fbff 0%, #fff8e8 42%, #ffe6ee 100%);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .math-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+      opacity: .72;
+    }
+
+    .formula {
+      position: absolute;
+      font-family: 'RobotoCustom', Arial, sans-serif;
+      font-weight: 700;
+      color: rgba(63, 114, 175, .16);
+      animation: floatFormula linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes floatFormula {
+      from {
+        transform: translateY(110vh) rotate(0deg);
+      }
+
+      to {
+        transform: translateY(-20vh) rotate(360deg);
+      }
+    }
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .hero-card {
+      width: min(980px, 100%);
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 30px;
+      align-items: center;
+      padding: 38px;
+      border-radius: 34px;
+      background: rgba(255, 255, 255, .78);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.78);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: 'L = 1/2 × a × t   πr²   c² = a² + b²';
+      position: absolute;
+      left: 30px;
+      bottom: 18px;
+      color: rgba(22, 33, 62, .06);
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: 4px;
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(63, 114, 175, .10);
+      color: var(--blue);
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'RobotoCustom', Arial, sans-serif;
+      line-height: 1.12;
+      font-weight: 900;
+    }
+
+    h1 {
+      font-size: clamp(28px, 3.2vw, 42px);
+      margin-bottom: 16px;
+      color: var(--navy);
+      letter-spacing: -1px;
+      white-space: nowrap;
+    }
+
+    h1 .title-accent {
+      color: var(--rose);
+      text-shadow: 3px 3px 0 rgba(255, 209, 102, .45);
+    }
+
+    .subtitle {
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 540px;
+      color: rgba(22, 33, 62, .80);
+      margin-bottom: 6px;
+    }
+
+    .gift-zone {
+      position: relative;
+      z-index: 2;
+      min-height: 390px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .floating-hearts {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .emoji-heart {
+      position: absolute;
+      font-size: 34px;
+      opacity: .88;
+      filter: drop-shadow(0 8px 12px rgba(255,77,109,.14));
+      animation: emojiHeartFloat 3.2s ease-in-out infinite;
+    }
+
+    .eh1 { left: 8%; top: 6%; animation-delay: -.2s; }
+    .eh2 { right: 12%; top: 10%; animation-delay: -.8s; font-size: 30px; }
+    .eh3 { left: 24%; top: 28%; animation-delay: -1.5s; font-size: 27px; }
+    .eh4 { right: 22%; top: 31%; animation-delay: -2.1s; }
+    .eh5 { left: 10%; bottom: 32%; animation-delay: -1.1s; font-size: 29px; }
+    .eh6 { right: 8%; bottom: 30%; animation-delay: -.5s; font-size: 32px; }
+    .eh7 { left: 38%; top: 4%; animation-delay: -2.7s; font-size: 25px; }
+    .eh8 { right: 38%; top: 18%; animation-delay: -1.8s; font-size: 28px; }
+    .eh9 { left: 45%; bottom: 38%; animation-delay: -2.4s; font-size: 26px; }
+
+    @keyframes emojiHeartFloat {
+      0%, 100% {
+        transform: translateY(0) scale(1) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-15px) scale(1.08) rotate(5deg);
+      }
+    }
+
+    .memory-badge {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.86);
+      box-shadow: var(--shadow-soft);
+      color: var(--rose);
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 2px;
+    }
+
+    .memory-badge span {
+      display: block;
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .gift {
+      width: 230px;
+      height: 220px;
+      position: relative;
+      cursor: pointer;
+      transition: transform .25s ease;
+      filter: drop-shadow(0 20px 28px rgba(22,33,62,.22));
+      animation: giftBounce 1.3s ease-in-out infinite;
+      z-index: 4;
+    }
+
+    .gift:hover {
+      transform: translateY(-5px) scale(1.03);
+    }
+
+    @keyframes giftBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    .gift-lid {
+      position: absolute;
+      top: 30px;
+      left: 24px;
+      width: 182px;
+      height: 58px;
+      background: linear-gradient(135deg, var(--rose), #ff758f);
+      border-radius: 16px 16px 9px 9px;
+      transition: transform .7s ease;
+      z-index: 3;
+    }
+
+    .gift-box {
+      position: absolute;
+      bottom: 25px;
+      left: 38px;
+      width: 154px;
+      height: 124px;
+      background: linear-gradient(135deg, #ff8fab, #ff4d6d);
+      border-radius: 14px 14px 22px 22px;
+      overflow: hidden;
+    }
+
+    .ribbon-v {
+      position: absolute;
+      top: 30px;
+      left: 100px;
+      width: 30px;
+      height: 165px;
+      background: var(--yellow);
+      z-index: 4;
+      border-radius: 14px;
+    }
+
+    .ribbon-h {
+      position: absolute;
+      top: 112px;
+      left: 38px;
+      width: 154px;
+      height: 26px;
+      background: var(--yellow);
+      z-index: 4;
+    }
+
+    .bow-left,
+    .bow-right {
+      position: absolute;
+      top: 6px;
+      width: 72px;
+      height: 54px;
+      border-radius: 50% 50% 10px 50%;
+      background: var(--yellow);
+      z-index: 5;
+    }
+
+    .bow-left {
+      left: 52px;
+      transform: rotate(-25deg);
+    }
+
+    .bow-right {
+      right: 52px;
+      transform: scaleX(-1) rotate(-25deg);
+    }
+
+    .gift.opened .gift-lid {
+      transform: translateY(-76px) rotate(-18deg);
+    }
+
+    button {
+      font-family: 'RobotoCustom', Arial, sans-serif;
+      font-weight: 800;
+    }
+
+    .music-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 80;
+      width: 52px;
+      height: 52px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(14px);
+      cursor: pointer;
+      font-size: 22px;
+      transition: .2s ease;
+    }
+
+    .music-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .main-wrap {
+      width: min(1100px, 100%);
+      padding: 30px 0 70px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,.84);
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(14px);
+      color: var(--navy);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .brand-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.95);
+      border: 1px solid rgba(22,33,62,.08);
+      overflow: hidden;
+      flex: 0 0 auto;
+      box-shadow: inset 0 0 0 3px rgba(255,255,255,.7);
+    }
+
+    .brand-icon img {
+      width: 82%;
+      height: 82%;
+      object-fit: contain;
+      display: block;
+      border-radius: 50%;
+    }
+
+    .admin-btn {
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(14px);
+      color: var(--navy);
+      font-size: 22px;
+      cursor: pointer;
+      flex: 0 0 auto;
+      transition: .2s ease;
+    }
+
+    .admin-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .right-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-width: 0;
+    }
+
+    .card {
+      background: rgba(255,255,255,.84);
+      border: 1px solid rgba(255,255,255,.80);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .photo-card {
+      padding: 18px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .photo-frame {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 22px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(63,114,175,.12), rgba(255,143,171,.18)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,.6) 0 12px, rgba(255,255,255,.25) 12px 24px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 22px;
+      color: rgba(22, 33, 62, .68);
+      border: 4px solid white;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-caption {
+      padding: 16px 8px 4px;
+      text-align: center;
+      color: var(--blue);
+      font-size: 16px;
+      line-height: 1.4;
+      font-weight: 800;
+    }
+
+    .letter-card,
+    .form-card,
+    .admin-panel {
+      padding: 28px;
+      min-width: 0;
+    }
+
+    .section-label {
+      display: inline-flex;
+      padding: 8px 14px;
+      background: rgba(255, 77, 109, .10);
+      color: var(--rose);
+      border-radius: 999px;
+      margin-bottom: 14px;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 44px);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .letter {
+      font-size: 17px;
+      line-height: 1.8;
+      color: rgba(22,33,62,.84);
+    }
+
+    .letter p + p {
+      margin-top: 14px;
+    }
+
+    .signature {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(255, 209, 102, .20), rgba(255, 143, 171, .18));
+      font-size: 18px;
+      line-height: 1.8;
+      font-weight: 800;
+    }
+
+    .form-intro {
+      color: rgba(22,33,62,.74);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--navy);
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 2px solid rgba(63,114,175,.16);
+      background: rgba(255,255,255,.88);
+      border-radius: 18px;
+      padding: 14px 15px;
+      font: inherit;
+      color: var(--navy);
+      outline: none;
+      transition: .2s ease;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--rose);
+      box-shadow: 0 0 0 4px rgba(255,77,109,.12);
+    }
+
+    .emoji-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .emoji-choice input {
+      display: none;
+    }
+
+    .emoji-choice span {
+      display: grid;
+      place-items: center;
+      min-height: 54px;
+      border-radius: 16px;
+      background: white;
+      border: 2px solid rgba(63,114,175,.12);
+      font-size: 24px;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .emoji-choice input:checked + span {
+      border-color: var(--rose);
+      background: #fff0f4;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(255,77,109,.18);
+    }
+
+    .submit-btn,
+    .small-btn {
+      border: 0;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .submit-btn:hover,
+    .small-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--rose), var(--purple));
+      color: white;
+      font-size: 16px;
+      box-shadow: 0 16px 34px rgba(139,92,246,.28);
+    }
+
+    .submit-btn:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .memory-capsule {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at top left, rgba(255,209,102,.42), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,240,246,.92));
+      border: 2px solid rgba(255,77,109,.18);
+      box-shadow: 0 14px 32px rgba(255,77,109,.12);
+      animation: capsulePop .45s ease both;
+    }
+
+    .memory-capsule-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      color: var(--rose);
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .capsule-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--rose), var(--yellow));
+      color: white;
+      box-shadow: 0 10px 20px rgba(255,77,109,.22);
+    }
+
+    .memory-capsule p {
+      line-height: 1.65;
+      color: rgba(22,33,62,.76);
+      font-size: 16px;
+    }
+
+    @keyframes capsulePop {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .admin-panel {
+      display: none;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+
+    .small-btn {
+      padding: 11px 14px;
+      border-radius: 14px;
+      background: var(--navy);
+      color: white;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .small-btn.alt {
+      background: var(--rose);
+    }
+
+    .small-btn.soft {
+      background: rgba(63, 114, 175, .14);
+      color: var(--navy);
+    }
+
+    .message-list {
+      width: 100%;
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+      min-width: 0;
+    }
+
+    .message-card {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      background: white;
+      border: 1px solid rgba(63,114,175,.14);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 10px 24px rgba(22,33,62,.08);
+      overflow: hidden;
+    }
+
+    .message-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .message-name {
+      color: var(--navy);
+      font-size: 16px;
+      font-weight: 900;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .message-time {
+      font-size: 13px;
+      color: rgba(22,33,62,.58);
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .message-card p {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      line-height: 1.65;
+      margin-top: 8px;
+      color: rgba(22,33,62,.82);
+      font-size: 15px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .message-label {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--rose);
+      background: rgba(255,77,109,.09);
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-weight: 900;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 22px;
+      color: rgba(22,33,62,.6);
+      background: white;
+      border-radius: 20px;
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 28px;
+      color: rgba(22,33,62,.60);
+      font-size: 16px;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 99;
+      right: 20px;
+      bottom: 82px;
+      width: min(390px, calc(100% - 40px));
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(22,33,62,.92);
+      color: white;
+      box-shadow: var(--shadow);
+      transform: translateY(260%);
+      opacity: 0;
+      pointer-events: none;
+      transition: .35s ease;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(22,33,62,.45);
+      backdrop-filter: blur(8px);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal {
+      width: min(430px, 100%);
+      background: rgba(255,255,255,.95);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.9);
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .modal h3 {
+      font-size: 30px;
+    }
+
+    .close-btn {
+      border: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(22,33,62,.08);
+      cursor: pointer;
+      font-size: 24px;
+      font-family: 'RobotoCustom', Arial, sans-serif;
+    }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 16px;
+      opacity: .9;
+      z-index: 70;
+      animation: fall 1.8s ease-in forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(540deg);
+        opacity: 0;
+      }
+    }
+
+    body.admin-mode .photo-card,
+    body.admin-mode .letter-card,
+    body.admin-mode .form-card,
+    body.admin-mode .footer-note {
+      display: none !important;
+    }
+
+    body.admin-mode .content-grid {
+      display: block;
+    }
+
+    body.admin-mode .right-stack {
+      display: block;
+    }
+
+    body.admin-mode .admin-panel {
+      display: block !important;
+      margin-top: 0;
+    }
+
+    body.admin-mode .main-wrap {
+      width: min(1120px, 100%);
+    }
+
+    @media (max-width: 850px) {
+      .hero-card {
+        grid-template-columns: 1fr;
+        padding: 26px;
+        text-align: center;
+      }
+
+      .subtitle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .content-grid {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .right-stack {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .photo-card {
+        position: relative;
+        top: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        background:
+          radial-gradient(circle at top left, rgba(255, 209, 102, .28), transparent 34%),
+          linear-gradient(180deg, #fff8e8 0%, #fff0f5 45%, #eef5ff 100%);
+      }
+
+      .screen {
+        min-height: auto;
+        align-items: flex-start;
+        padding: 10px;
+      }
+
+      #introScreen {
+        min-height: 100vh;
+        align-items: flex-start;
+        padding-top: 18px;
+      }
+
+      .hero-card {
+        min-height: auto;
+        padding: 22px 18px 24px;
+        border-radius: 28px;
+        gap: 8px;
+      }
+
+      .hero-card::after {
+        display: none;
+      }
+
+      h1 {
+        font-size: clamp(20px, 5.6vw, 24px);
+        line-height: 1.16;
+        letter-spacing: -.7px;
+        white-space: nowrap;
+      }
+
+      .badge {
+        font-size: 14px;
+        padding: 9px 14px;
+      }
+
+      .subtitle {
+        font-size: 15px;
+        line-height: 1.65;
+        margin-bottom: 8px;
+      }
+
+      .gift-zone {
+        min-height: 345px;
+        margin-top: 8px;
+        gap: 8px;
+      }
+
+      .memory-badge {
+        font-size: 17px;
+        padding: 10px 15px;
+      }
+
+      .memory-badge span {
+        font-size: 13px;
+      }
+
+      .emoji-heart {
+        font-size: 30px;
+      }
+
+      .eh2 { font-size: 27px; }
+      .eh3 { font-size: 25px; }
+      .eh5 { font-size: 26px; }
+      .eh6 { font-size: 29px; }
+      .eh7 { font-size: 23px; }
+      .eh8 { font-size: 25px; }
+
+      .gift {
+        width: 210px;
+        height: 200px;
+      }
+
+      .gift-lid {
+        top: 28px;
+        left: 22px;
+        width: 166px;
+        height: 54px;
+      }
+
+      .gift-box {
+        bottom: 22px;
+        left: 35px;
+        width: 140px;
+        height: 112px;
+      }
+
+      .ribbon-v {
+        top: 28px;
+        left: 91px;
+        width: 28px;
+        height: 150px;
+      }
+
+      .ribbon-h {
+        top: 104px;
+        left: 35px;
+        width: 140px;
+        height: 24px;
+      }
+
+      .bow-left,
+      .bow-right {
+        width: 66px;
+        height: 50px;
+      }
+
+      .bow-left {
+        left: 48px;
+      }
+
+      .bow-right {
+        right: 48px;
+      }
+
+      #mainScreen {
+        padding: 10px;
+      }
+
+      .main-wrap {
+        width: 100%;
+        padding: 6px 0 34px;
+      }
+
+      .topbar {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .brand {
+        flex: 1;
+        min-width: 0;
+        padding: 10px 12px;
+        border-radius: 20px;
+        gap: 8px;
+      }
+
+      .brand-text {
+        font-size: 14px;
+      }
+
+      .brand-icon {
+        width: 36px;
+        height: 36px;
+      }
+
+      .admin-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+      }
+
+      .content-grid,
+      .right-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .card {
+        border-radius: 22px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .photo-card {
+        width: 100%;
+        padding: 12px;
+      }
+
+      .photo-frame {
+        aspect-ratio: 16 / 9;
+        border-radius: 18px;
+        border-width: 3px;
+        font-size: 15px;
+      }
+
+      .photo-caption {
+        font-size: 14px;
+        padding: 12px 4px 2px;
+      }
+
+      .letter-card,
+      .form-card,
+      .admin-panel {
+        padding: 18px;
+      }
+
+      .section-label {
+        font-size: 13px;
+      }
+
+      h2 {
+        font-size: 26px;
+        line-height: 1.2;
+      }
+
+      .letter {
+        font-size: 15px;
+        line-height: 1.75;
+      }
+
+      .signature {
+        font-size: 16px;
+      }
+
+      .form-intro {
+        font-size: 14px;
+      }
+
+      label {
+        font-size: 15px;
+      }
+
+      input,
+      textarea {
+        border-radius: 15px;
+        padding: 13px;
+        font-size: 14px;
+      }
+
+      textarea {
+        min-height: 105px;
+      }
+
+      .emoji-row {
+        gap: 7px;
+      }
+
+      .emoji-choice span {
+        min-height: 48px;
+        font-size: 22px;
+        border-radius: 14px;
+      }
+
+      .submit-btn {
+        border-radius: 17px;
+        padding: 15px;
+        font-size: 15px;
+      }
+
+      .admin-actions {
+        gap: 8px;
+      }
+
+      .small-btn {
+        font-size: 13px;
+        padding: 10px 12px;
+      }
+
+      .message-card {
+        border-radius: 18px;
+        padding: 14px;
+      }
+
+      .toast {
+        right: 12px;
+        bottom: 78px;
+        width: calc(100% - 24px);
+        transform: translateY(280%);
+        opacity: 0;
+      }
+
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .music-btn {
+        right: 14px;
+        bottom: 14px;
+        width: 48px;
+        height: 48px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="math-bg" id="mathBg"></div>
+
+  <audio id="bgMusic" src="audio/lagu.mpeg" loop preload="auto"></audio>
+  <button class="music-btn" id="musicBtn" title="Putar lagu">🎵</button>
+
+  <section class="screen" id="introScreen">
+    <div class="hero-card">
+      <div class="hero-text">
+        <div class="badge">📐 Mathematics X Memories</div>
+        <h1>Hadiah Kecil Untuk Kelas <span class="title-accent">VII-5</span></h1>
+        <p class="subtitle">
+          Ada satu kado untuk siswa-siswi kelas VII-5 MTsN 2 Nganjuk.
+          Tenang, isinya bukan soal matematika lagi kok, jadi tidak perlu buka buku paket atau mencari kalkulator.
+          Tapi tentang cerita belajar, tawa, dan perpisahan.
+          Disini kalian bisa cerita hal yang lucu, haru, atau yang random sekalipun, asal jangan minta tambahan nilai ya!! hehehe.
+        </p>
+      </div>
+
+      <div class="gift-zone">
+        <div class="floating-hearts" aria-hidden="true">
+          <span class="emoji-heart eh1">💗</span>
+          <span class="emoji-heart eh2">💗</span>
+          <span class="emoji-heart eh3">💗</span>
+          <span class="emoji-heart eh4">💗</span>
+          <span class="emoji-heart eh5">💗</span>
+          <span class="emoji-heart eh6">💗</span>
+          <span class="emoji-heart eh7">💗</span>
+          <span class="emoji-heart eh8">💗</span>
+          <span class="emoji-heart eh9">💗</span>
+        </div>
+
+        <div class="memory-badge">
+          VII-5
+          <span>kenangan kita ∞</span>
+        </div>
+
+        <div class="gift" id="giftBox" role="button" tabindex="0" aria-label="Buka kado">
+          <div class="bow-left"></div>
+          <div class="bow-right"></div>
+          <div class="gift-lid"></div>
+          <div class="gift-box"></div>
+          <div class="ribbon-v"></div>
+          <div class="ribbon-h"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen hidden" id="mainScreen">
+    <main class="main-wrap">
+      <div class="topbar">
+        <div class="brand">
+          <span class="brand-icon" id="schoolLogoBox">🏫</span>
+          <span class="brand-text">MTSN 2 NGANJUK</span>
+        </div>
+
+        <button class="admin-btn" id="openAdminBtn" title="Admin">🔐</button>
+      </div>
+
+      <div class="content-grid">
+        <aside class="card photo-card">
+          <div class="photo-frame" id="photoFrame">
+            <div>
+              📷<br>
+              Foto bersama kelas VII-5 akan tampil di sini.<br>
+              Upload ke folder images.
+            </div>
+          </div>
+          <div class="photo-caption">Kenangan bersama kelas VII-5</div>
+        </aside>
+
+        <section class="right-stack">
+          <div class="card letter-card">
+            <div class="section-label">Surat kecil dari Kak Idzhar</div>
+            <h2>Siswa/i Hebat Kelas VII-5</h2>
+
+            <div class="letter">
+              <p>Assalamu’alaikum warahmatullahi wabarakatuh.</p>
+
+              <p>
+                Untuk anak-anak kelas VII-5 MTsN 2 Nganjuk, terima kasih sudah menerima Kak Idzhar selama kegiatan magang. Waktu yang kita lalui mungkin tidak terlalu lama, tetapi setiap pertemuan, setiap tanya jawab, setiap candaan, dan setiap usaha kalian dalam belajar matematika menjadi kenangan yang sangat berarti.
+              </p>
+
+              <p>
+                Kakak tahu matematika kadang terasa sulit, penuh angka, rumus, dan langkah-langkah yang bikin bingung. Tapi dari kalian, kakak belajar bahwa proses memahami sesuatu tidak harus selalu sempurna. Yang penting adalah mau mencoba, mau bertanya, dan tidak takut salah.
+              </p>
+
+              <p>
+                Semoga setelah ini kalian tetap semangat belajar, tetap saling menghargai, tetap menjaga kekompakan kelas, dan terus percaya bahwa setiap dari kalian punya kelebihan masing-masing. Hidup juga seperti matematika: kadang ada masalah yang panjang, tetapi selalu ada cara untuk menemukan jawabannya.
+              </p>
+
+              <p>
+                Terima kasih sudah menjadi bagian dari perjalanan kakak. Maaf jika selama mengajar masih ada kekurangan. Semoga kelas VII-5 selalu menjadi kelas yang kompak, ceria, dan penuh cerita baik.
+              </p>
+
+              <div class="signature">
+                Tanjunganom, 3 Juni 2026<br>
+                Mayzam Idzhar Hanafi<br>
+              </div>
+            </div>
+          </div>
+
+          <div class="card form-card" id="formArea">
+            <div class="section-label">Tulis pesanmu</div>
+            <h2>Untuk Kak Idzhar..</h2>
+
+            <p class="form-intro">
+              Isi dengan jujur dan santai ya. Boleh lucu, boleh haru, boleh singkat, yang penting dari hati.
+            </p>
+
+            <form id="messageForm">
+              <div class="field">
+                <label for="nama">Nama siswa</label>
+                <input type="text" id="nama" name="nama" placeholder="Contoh: Mayzam Idzhar H. / Nama lengkapmu" required>
+              </div>
+
+              <div class="field">
+                <label for="pesan">Pesan dan kesan selama belajar bersama Kak Idzhar</label>
+                <textarea id="pesan" name="pesan" placeholder="Tulis pesan dan kesanmu di sini..." required></textarea>
+              </div>
+
+              <div class="field">
+                <label for="kalimat">Kalimat terakhir untuk Kak Idzhar</label>
+                <textarea id="kalimat" name="kalimat" placeholder="Tulis kata-kata kalian ya guys!" required></textarea>
+              </div>
+
+              <div class="field">
+                <label for="halDiingat">Hal yang paling kamu ingat</label>
+                <input type="text" id="halDiingat" name="halDiingat" placeholder="Contoh: game, rumus, cara ngajarnya...">
+              </div>
+
+              <div class="field">
+                <label>Emoji perasaanmu</label>
+                <div class="emoji-row">
+                  <label class="emoji-choice"><input type="radio" name="emoji" value="🥹" checked><span>🥹</span></label>
+                  <label class="emoji-choice"><input type="radio" name="emoji" value="😭"><span>😭</span></label>
+                  <label class="emoji-choice"><input type="radio" name="emoji" value="😄"><span>😄</span></label>
+                  <label class="emoji-choice"><input type="radio" name="emoji" value="🤍"><span>🤍</span></label>
+                  <label class="emoji-choice"><input type="radio" name="emoji" value="✨"><span>✨</span></label>
+                </div>
+              </div>
+
+              <button class="submit-btn" type="submit" id="submitBtn">
+                Kirim pesan kenangan ✨
+              </button>
+            </form>
+
+            <div class="memory-capsule hidden" id="memoryCapsule">
+              <div class="memory-capsule-head">
+                <span class="capsule-icon">💌</span>
+                <span>Pesanmu masuk ke Kapsul Kenangan VII-5</span>
+              </div>
+              <p>
+                Terima kasih sudah menulis pesan dari hati. Pesanmu akan menjadi bagian dari arsip kenangan kelas VII-5 bersama Kak Idzhar.
+              </p>
+            </div>
+          </div>
+
+          <div class="card admin-panel" id="adminPanel">
+            <div class="section-label">Dashboard Admin</div>
+            <h2>Data Pesan Siswa</h2>
+
+            <p class="form-intro" id="adminSummary">
+              Data yang tampil di sini adalah pesan yang sudah masuk ke spreadsheet.
+            </p>
+
+            <div class="field">
+              <label for="searchMessage">Cari nama atau isi pesan</label>
+              <input type="text" id="searchMessage" placeholder="Ketik nama siswa atau kata tertentu...">
+            </div>
+
+            <div class="admin-actions">
+              <button class="small-btn" id="refreshBtn">Refresh data</button>
+              <button class="small-btn alt" id="downloadCsvBtn">Download CSV</button>
+              <button class="small-btn soft" id="hideNamesBtn">Hide nama</button>
+            </div>
+
+            <div class="message-list" id="messageList">
+              <div class="empty-state">Belum ada data yang ditampilkan.</div>
+            </div>
+          </div>
+
+          <p class="footer-note">
+            Dibuat dengan cinta, rumus, dan kenangan untuk kelas VII-5 💙
+          </p>
+        </section>
+      </div>
+    </main>
+  </section>
+
+  <div class="modal-backdrop hidden" id="adminModal">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h3>Login Admin</h3>
+          <p class="form-intro">Masuk untuk melihat semua pesan siswa.</p>
+        </div>
+
+        <button class="close-btn" id="closeAdminBtn">×</button>
+      </div>
+
+      <form id="adminLoginForm">
+        <div class="field">
+          <label for="adminUsername">Username</label>
+          <input type="text" id="adminUsername" placeholder="admin" required>
+        </div>
+
+        <div class="field">
+          <label for="adminPassword">Password</label>
+          <input type="password" id="adminPassword" placeholder="Password admin" required>
+        </div>
+
+        <button class="submit-btn" type="submit" id="loginBtn">
+          Masuk Dashboard
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycby_Y6aZHcbNC4VYf6KGea4_5B2J73mqbx3zaTWOUU_2zV3ZFa5nf9CeGLwxDSOHauZYjQ/exec';
+    const PHOTO_URL = 'images/fotbar.png';
+    const LOGO_URL = 'images/logo.jpg';
+    const MUSIC_URL = 'audio/lagu.mpeg';
+
+    let adminToken = localStorage.getItem('adminTokenVii5') || '';
+    let allMessages = [];
+    let refreshTimer = null;
+    let namesHidden = false;
+    let musicPlaying = false;
+
+    const introScreen = document.getElementById('introScreen');
+    const mainScreen = document.getElementById('mainScreen');
+    const giftBox = document.getElementById('giftBox');
+    const toast = document.getElementById('toast');
+    const messageForm = document.getElementById('messageForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const memoryCapsule = document.getElementById('memoryCapsule');
+    const adminModal = document.getElementById('adminModal');
+    const openAdminBtn = document.getElementById('openAdminBtn');
+    const closeAdminBtn = document.getElementById('closeAdminBtn');
+    const adminLoginForm = document.getElementById('adminLoginForm');
+    const loginBtn = document.getElementById('loginBtn');
+    const adminPanel = document.getElementById('adminPanel');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const downloadCsvBtn = document.getElementById('downloadCsvBtn');
+    const hideNamesBtn = document.getElementById('hideNamesBtn');
+    const searchMessage = document.getElementById('searchMessage');
+    const messageList = document.getElementById('messageList');
+    const adminSummary = document.getElementById('adminSummary');
+    const photoFrame = document.getElementById('photoFrame');
+    const schoolLogoBox = document.getElementById('schoolLogoBox');
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+
+    function apiCall(action, params) {
+      return new Promise(function(resolve, reject) {
+        if (!API_URL || API_URL.includes('GANTI_DENGAN')) {
+          reject(new Error('API_URL belum diganti dengan link Web App Apps Script /exec.'));
+          return;
+        }
+
+        const callbackName = 'jsonpCallback_' + Date.now() + '_' + Math.floor(Math.random() * 100000);
+        const query = new URLSearchParams();
+
+        query.set('action', action);
+        query.set('callback', callbackName);
+
+        Object.keys(params || {}).forEach(function(key) {
+          query.set(key, params[key]);
+        });
+
+        const script = document.createElement('script');
+        script.src = API_URL + '?' + query.toString();
+
+        const timeoutId = setTimeout(function() {
+          cleanup();
+          reject(new Error('Koneksi ke database terlalu lama. Cek link API_URL dan deployment Apps Script.'));
+        }, 20000);
+
+        window[callbackName] = function(data) {
+          clearTimeout(timeoutId);
+          cleanup();
+          resolve(data);
+        };
+
+        script.onerror = function() {
+          clearTimeout(timeoutId);
+          cleanup();
+          reject(new Error('Gagal menghubungi Apps Script. Pastikan API_URL benar dan akses Anyone.'));
+        };
+
+        function cleanup() {
+          delete window[callbackName];
+          if (script.parentNode) {
+            script.parentNode.removeChild(script);
+          }
+        }
+
+        document.body.appendChild(script);
+      });
+    }
+
+    function createMathBackground() {
+      const formulas = [
+        'L segitiga = 1/2 × a × t',
+        'L lingkaran = πr²',
+        'K lingkaran = 2πr',
+        'Pythagoras: c² = a² + b²',
+        'V kubus = s³',
+        'L persegi = s²',
+        'K persegi = 4s',
+        'P = 2(p + l)',
+        'V balok = p × l × t',
+        'x̄ = Σx / n',
+        'VII-5 × semangat',
+        'kenangan kita ∞'
+      ];
+
+      const bg = document.getElementById('mathBg');
+
+      for (let i = 0; i < 38; i++) {
+        const span = document.createElement('span');
+        span.className = 'formula';
+        span.textContent = formulas[Math.floor(Math.random() * formulas.length)];
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.fontSize = (14 + Math.random() * 18) + 'px';
+        span.style.animationDuration = (13 + Math.random() * 18) + 's';
+        span.style.animationDelay = (-Math.random() * 25) + 's';
+        bg.appendChild(span);
+      }
+    }
+
+    function loadAssets() {
+      if (PHOTO_URL) {
+        photoFrame.innerHTML = '<img src="' + PHOTO_URL + '" alt="Foto bersama kelas VII-5 MTsN 2 Nganjuk">';
+      }
+
+      if (LOGO_URL) {
+        schoolLogoBox.innerHTML = '<img src="' + LOGO_URL + '" alt="Logo sekolah">';
+      }
+
+      if (MUSIC_URL) {
+        bgMusic.src = MUSIC_URL;
+      }
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+
+      setTimeout(function () {
+        toast.classList.remove('show');
+      }, 3800);
+    }
+
+    function toggleMusic() {
+      if (!bgMusic) return;
+
+      if (musicPlaying) {
+        bgMusic.pause();
+        musicPlaying = false;
+        musicBtn.textContent = '🎵';
+      } else {
+        bgMusic.play()
+          .then(function () {
+            musicPlaying = true;
+            musicBtn.textContent = '🔇';
+          })
+          .catch(function () {
+            showToast('Lagu belum bisa diputar. Pastikan file audio/lagu.mp3 sudah diupload.');
+          });
+      }
+    }
+
+    function tryPlayMusicAfterClick() {
+      if (!musicPlaying && bgMusic) {
+        bgMusic.play()
+          .then(function () {
+            musicPlaying = true;
+            musicBtn.textContent = '🔇';
+          })
+          .catch(function () {});
+      }
+    }
+
+    function throwConfetti() {
+      const colors = ['#ff4d6d', '#ffd166', '#3f72af', '#8b5cf6', '#76c893'];
+
+      for (let i = 0; i < 70; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = Math.random() * .8 + 's';
+        piece.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)';
+        document.body.appendChild(piece);
+
+        setTimeout(function () {
+          piece.remove();
+        }, 2600);
+      }
+    }
+
+    function openGift() {
+      giftBox.classList.add('opened');
+      throwConfetti();
+      tryPlayMusicAfterClick();
+
+      setTimeout(function () {
+        introScreen.classList.add('hidden');
+        mainScreen.classList.remove('hidden');
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }, 850);
+    }
+
+    function openAdminMode() {
+      document.body.classList.add('admin-mode');
+      introScreen.classList.add('hidden');
+      mainScreen.classList.remove('hidden');
+
+      setTimeout(function () {
+        adminPanel.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 200);
+    }
+
+    giftBox.addEventListener('click', openGift);
+
+    giftBox.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        openGift();
+      }
+    });
+
+    musicBtn.addEventListener('click', toggleMusic);
+
+    messageForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Mengirim pesan...';
+
+      const formData = new FormData(messageForm);
+
+      const payload = {
+        nama: formData.get('nama'),
+        pesan: formData.get('pesan'),
+        kalimat: formData.get('kalimat'),
+        halDiingat: formData.get('halDiingat'),
+        emoji: formData.get('emoji'),
+        userAgent: navigator.userAgent
+      };
+
+      apiCall('save', payload)
+        .then(function(response) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Kirim pesan kenangan ✨';
+
+          if (response.success) {
+            messageForm.reset();
+            document.querySelector('input[name="emoji"][value="🥹"]').checked = true;
+
+            memoryCapsule.classList.remove('hidden');
+            memoryCapsule.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center'
+            });
+
+            throwConfetti();
+          }
+
+          showToast(response.message);
+        })
+        .catch(function(error) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Kirim pesan kenangan ✨';
+          showToast('Gagal mengirim: ' + error.message);
+        });
+    });
+
+    openAdminBtn.addEventListener('click', function () {
+      adminModal.classList.remove('hidden');
+    });
+
+    closeAdminBtn.addEventListener('click', function () {
+      adminModal.classList.add('hidden');
+    });
+
+    adminModal.addEventListener('click', function (event) {
+      if (event.target === adminModal) {
+        adminModal.classList.add('hidden');
+      }
+    });
+
+    adminLoginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Memeriksa...';
+
+      const username = document.getElementById('adminUsername').value;
+      const password = document.getElementById('adminPassword').value;
+
+      apiCall('login', {
+        username: username,
+        password: password
+      })
+        .then(function(response) {
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Masuk Dashboard';
+
+          showToast(response.message);
+
+          if (response.success) {
+            adminToken = response.token;
+            localStorage.setItem('adminTokenVii5', adminToken);
+
+            adminModal.classList.add('hidden');
+            openAdminMode();
+            loadMessages(false);
+
+            if (refreshTimer) {
+              clearInterval(refreshTimer);
+            }
+
+            refreshTimer = setInterval(function () {
+              loadMessages(true);
+            }, 10000);
+          }
+        })
+        .catch(function(error) {
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Masuk Dashboard';
+          showToast('Login gagal: ' + error.message);
+        });
+    });
+
+    function loadMessages(silent) {
+      if (!adminToken) {
+        if (!silent) {
+          showToast('Silakan login admin terlebih dahulu.');
+        }
+        return;
+      }
+
+      if (!silent) {
+        messageList.innerHTML = '<div class="empty-state">Memuat data dari spreadsheet...</div>';
+      }
+
+      apiCall('messages', {
+        token: adminToken
+      })
+        .then(function(response) {
+          if (!response.success) {
+            showToast(response.message);
+            messageList.innerHTML = '<div class="empty-state">' + escapeHtml(response.message) + '</div>';
+            return;
+          }
+
+          allMessages = response.data || [];
+          renderMessages(allMessages);
+
+          adminSummary.textContent = 'Total pesan masuk: ' + allMessages.length + ' pesan. Data otomatis refresh tiap 10 detik.';
+        })
+        .catch(function(error) {
+          showToast('Gagal memuat data: ' + error.message);
+          messageList.innerHTML = '<div class="empty-state">Gagal memuat data: ' + escapeHtml(error.message) + '</div>';
+        });
+    }
+
+    function escapeHtml(text) {
+      return String(text || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function renderMessages(data) {
+      if (!data.length) {
+        messageList.innerHTML = '<div class="empty-state">Belum ada pesan masuk.</div>';
+        return;
+      }
+
+      messageList.innerHTML = data.map(function (item) {
+        const displayName = namesHidden ? 'Nama disembunyikan' : item.nama;
+
+        return ''
+          + '<div class="message-card">'
+          + '  <div class="message-head">'
+          + '    <div class="message-name">' + escapeHtml(item.emoji) + ' ' + escapeHtml(displayName) + '</div>'
+          + '    <div class="message-time">' + escapeHtml(item.timestamp) + '</div>'
+          + '  </div>'
+          + '  <span class="message-label">Pesan dan Kesan</span>'
+          + '  <p>' + escapeHtml(item.pesan) + '</p>'
+          + '  <span class="message-label">Kalimat Terakhir</span>'
+          + '  <p>' + escapeHtml(item.kalimat) + '</p>'
+          + '  <span class="message-label">Hal Paling Diingat</span>'
+          + '  <p>' + escapeHtml(item.halDiingat || '-') + '</p>'
+          + '</div>';
+      }).join('');
+    }
+
+    searchMessage.addEventListener('input', function () {
+      const keyword = searchMessage.value.toLowerCase().trim();
+
+      const filtered = allMessages.filter(function (item) {
+        return Object.values(item).join(' ').toLowerCase().includes(keyword);
+      });
+
+      renderMessages(filtered);
+      adminSummary.textContent = 'Menampilkan ' + filtered.length + ' dari ' + allMessages.length + ' pesan.';
+    });
+
+    refreshBtn.addEventListener('click', function () {
+      loadMessages(false);
+    });
+
+    hideNamesBtn.addEventListener('click', function () {
+      namesHidden = !namesHidden;
+      hideNamesBtn.textContent = namesHidden ? 'Show nama' : 'Hide nama';
+
+      const keyword = searchMessage.value.toLowerCase().trim();
+
+      if (keyword) {
+        const filtered = allMessages.filter(function (item) {
+          return Object.values(item).join(' ').toLowerCase().includes(keyword);
+        });
+        renderMessages(filtered);
+      } else {
+        renderMessages(allMessages);
+      }
+    });
+
+    downloadCsvBtn.addEventListener('click', function () {
+      if (!allMessages.length) {
+        showToast('Belum ada data untuk diunduh.');
+        return;
+      }
+
+      const headers = [
+        'No',
+        'Waktu',
+        'Nama',
+        'Kelas',
+        'Pesan dan Kesan',
+        'Kalimat Terakhir',
+        'Hal Diingat',
+        'Emoji'
+      ];
+
+      const rows = allMessages.map(function (item) {
+        return [
+          item.no,
+          item.timestamp,
+          item.nama,
+          item.kelas,
+          item.pesan,
+          item.kalimat,
+          item.halDiingat,
+          item.emoji
+        ];
+      });
+
+      const csv = [headers].concat(rows)
+        .map(function (row) {
+          return row.map(function (value) {
+            return '"' + String(value || '').replace(/"/g, '""') + '"';
+          }).join(',');
+        })
+        .join('\n');
+
+      const blob = new Blob([csv], {
+        type: 'text/csv;charset=utf-8;'
+      });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = url;
+      link.download = 'pesan-kesan-kelas-vii-5.csv';
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(url);
+    });
+
+    createMathBackground();
+    loadAssets();
+  </script>
+</body>
+</html>
