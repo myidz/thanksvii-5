@@ -1844,7 +1844,7 @@
           allMessages = response.data || [];
           renderMessages(allMessages);
 
-          adminSummary.textContent = 'Total pesan masuk: ' + allMessages.length + ' pesan. Data otomatis refresh tiap 10 detik.';
+          adminSummary.textContent = 'Total pesan masuk: ' + allMessages.length + ' pesan.';
         })
         .catch(function(error) {
           showToast('Gagal memuat data: ' + error.message);
